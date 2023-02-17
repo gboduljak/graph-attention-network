@@ -18,7 +18,6 @@ Implementation of the training loop and evaluation is in *training_loop.py* and 
 respectively. Models were trained on the Google Colab GPUs and the corresponding training notebooks are located in the *experiments* folder.
 
 #### Analysis implementation and visualisations
-
 Logic for the presented analyses is in *attention_analysis.py* and in *neighbourhood_analysis.py*. Visualisation of those are implementated in  *attention_entropy_visualisation.py* and *neighbourhood_analysis_visualisation.py*.
 
 #### Reproducibility
