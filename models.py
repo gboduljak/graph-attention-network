@@ -52,23 +52,23 @@ class GCNPPI(nn.Module):
     super().__init__()
     self.model_name = 'GCNPPI'
     # assumes self loops were added by dataset transform
-    self.fst_layer = [
+    self.fst_layer = nn.ModuleList([
         gnn.GCNConv(in_channels=dim_in, out_channels=256, activation=nn.Identity(), bias=False, add_self_loops=False)
         for _ in range(4)
-    ]
-    self.snd_layer = [
+    ])
+    self.snd_layer = nn.ModuleList([
         gnn.GCNConv(in_channels=1024, out_channels=256, activation=nn.Identity(), bias=False, add_self_loops=False)
         for _ in range(4)
-    ]
-    self.last_layer = [
+    ])
+    self.last_layer = nn.ModuleList([
         gnn.GCNConv(in_channels=1024,
                     out_channels=num_classes,
                     activation=nn.Identity(),
                     bias=False,
                     add_self_loops=False) for _ in range(6)
-    ]
-    self.skip_to_snd = [nn.Linear(1024, 256, False) for _ in range(4)]
-    self.skip_to_last = [nn.Linear(1024, num_classes, False) for _ in range(6)]
+    ])
+    self.skip_to_snd = nn.ModuleList([nn.Linear(1024, 256, False) for _ in range(4)])
+    self.skip_to_last = nn.ModuleList([nn.Linear(1024, num_classes, False) for _ in range(6)])
     self.layers = self.fst_layer + self.snd_layer + self.last_layer
     self.skips = self.skip_to_snd + self.skip_to_last
 
