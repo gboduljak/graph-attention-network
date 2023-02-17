@@ -4,7 +4,9 @@
 
 In Section 3.4 of Graph Attention Networks [Veličković et al.](https://arxiv.org/abs/1710.10903), authors report that GATs achieve state-of-the-art performance across Cora and PPI. Since GATs were able to improve upon GCNs by a margin of 1.5% on Cora, the authors suggest that “assigning different weights to nodes of a same neighbourhood may be beneficial”. Furthermore, the authors report a significant improvement on the inductive PPI benchmark and “highlight the potential of attention-based models when dealing with arbitrarily structured graphs”. The authors also state that GATs “are able to assign different importances to different nodes within a neighbourhood while dealing with different sized neighbourhoods”, without concrete supporting evidence they actually do that on PPI. Since PPI is a protein interaction network and since those networks are usually heterophilic, I hypothesise that in such a setting, the attention is more beneficial and is unlikely to be uniform. This hypothesis could be verified by determining the probability distribution of scores learned by attention heads. The purpose of this study is to verify the hypothesis and provide evidence for the quoted claims.
 
-This project was submitted as a part of examination for [Graph Representation Learning](https://www.cs.ox.ac.uk/teaching/courses/2022-2023/grl/) at Oxford.
+This project was submitted as a part of examination for [Graph Representation Learning](https://www.cs.ox.ac.uk/teaching/courses/2022-2023/grl/) at Oxford. 
+
+The project report is [here](https://github.com/gboduljak/graph-attention-networks/blob/master/report.pdf).
 
 
 #### Why custom **GATLayer** implementation?
