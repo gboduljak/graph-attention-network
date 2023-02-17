@@ -9,16 +9,13 @@ def draw_entropy_head_plot(axis: plt.Axes, neighbourhood_entropy: np.ndarray, un
   color_uniform = cmap(0.4)
 
   def draw_entropy_histogram(entropy_array: np.ndarray, color: str, from_uniform_distribution=False, num_bins=30):
-    max_entropy = np.max(entropy_array)
-    bin_width = (max_entropy / num_bins) * (1.0 if from_uniform_distribution else 0.75)
-    hist_values, hist_bins = np.histogram(entropy_array, bins=num_bins)
-    axis.bar(hist_bins[:num_bins], hist_values[:num_bins], width=bin_width, color=color)
+    axis.hist(entropy_array, num_bins, color=color, alpha=0.7, rwidth=0.7 if not from_uniform_distribution else 1.0)
 
   draw_entropy_histogram(uniform_entropy, color=color_uniform, from_uniform_distribution=True)
   draw_entropy_histogram(neighbourhood_entropy, color=color_attention)
 
   axis.set_xlabel(f'entropy bin')
-  axis.set_ylabel(f'# of node neighborhoods')
+  axis.set_ylabel(f'# of neighborhoods')
   axis.legend(['uniform distribution', 'attention distribution'])
   axis.set_title(title)
 
