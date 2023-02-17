@@ -39,7 +39,7 @@ def train(model, params: dict, verbose: bool = True) -> torch.nn.Module:
     loss.backward()
     optimizer.step()
 
-    return (loss.item(), batch_score(labels, pred))
+    return (loss.item(), batch_score(pred, labels))
 
   earlyStopping = PPIEarlyStopping(params['patience'])
   model_saver = ModelSaver(params['model_name'])

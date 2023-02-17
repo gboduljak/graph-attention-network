@@ -17,7 +17,7 @@ def evaluate(model, batch_loader):
     with torch.no_grad():
       logits = model(node_features, edge_index)
       pred = torch.where(logits >= 0, 1, 0)
-      return (loss_fcn(logits, labels), f1_score(labels, pred))
+      return (loss_fcn(logits, labels), f1_score(pred, labels))
 
   total_score = 0
   total_loss = 0
