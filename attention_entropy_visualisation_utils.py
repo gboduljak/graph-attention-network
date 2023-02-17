@@ -26,41 +26,23 @@ def draw_entropy_head_plot(axis: plt.Axes, neighbourhood_entropy: np.ndarray, un
 def draw_entropy_heads_plot(neighbourhood_entropy_per_head: List[np.ndarray],
                             uniform_entropy_per_head: List[np.ndarray], layer: int, subplots: List[int]):
 
-  num_heads = len(neighbourhood_entropy_per_head)
   rows, cols = subplots
   current_head = 0
+  fig, axs = plt.subplots(rows, cols)
 
-  if num_heads >= 2:
-    fig, axs = plt.subplots(rows, cols)
-
-    if rows == 1:
-      for col in range(cols):
-        neighbourhood_entropy = neighbourhood_entropy_per_head[current_head]
-        corresponding_unif_entropy = uniform_entropy_per_head[current_head]
+  for row in range(rows):
+    for col in range(cols):
+      neighbourhood_entropy = neighbourhood_entropy_per_head[current_head]
+      corresponding_unif_entropy = uniform_entropy_per_head[current_head]
+      if rows == 1:
         draw_entropy_head_plot(axs[col], neighbourhood_entropy, corresponding_unif_entropy,
                                f'attention head={current_head}, layer={layer}')
-        current_head += 1
-        fig.suptitle(f'attention distribution entropy in layer={layer}')
-        fig.subplots_adjust(top=0.9)
-        fig.set_size_inches(19.5, 5.75)
-    else:
-      current_head = 0
-      for row in range(rows):
-        for col in range(cols):
-          neighbourhood_entropy = neighbourhood_entropy_per_head[current_head]
-          corresponding_unif_entropy = uniform_entropy_per_head[current_head]
-          draw_entropy_head_plot(axs[row, col], neighbourhood_entropy, corresponding_unif_entropy,
-                                 f'attention head={current_head}, layer={layer}')
-          current_head += 1
-          fig.suptitle(f'attention distribution entropy in layer={layer}')
-          fig.subplots_adjust(top=0.9)
-          fig.set_size_inches(19.5, 11.5)
-  else:
-    neighbourhood_entropy = neighbourhood_entropy_per_head[current_head]
-    corresponding_unif_entropy = uniform_entropy_per_head[current_head]
+      else:
+        draw_entropy_head_plot(axs[row, col], neighbourhood_entropy, corresponding_unif_entropy,
+                               f'attention head={current_head}, layer={layer}')
+      current_head += 1
 
-    fig = plt.figure()
-    fig.set_figwidth(4.875)
-    fig.set_figheight(5.75)
-    draw_entropy_head_plot(plt.gca(), neighbourhood_entropy, corresponding_unif_entropy,
-                           f'attention head={current_head}, layer={layer}')
+  fig.suptitle(f'attention distribution entropy in layer={layer}')
+  fig.subplots_adjust(top=0.9)
+  fig.set_size_inches(19.5, 5.75)
+  return fig
